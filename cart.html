@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cart - CrownWear</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      background: #f5f5f5;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+   
+
+    /* --- Header Styles --- */
+    .header {
+      background-color: #fff;
+      padding: 0 20px; /* Add side padding to the header bar */
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      width: 100%;
+      z-index: 10;
+    }
+
+    /* Container within header for alignment */
+    .header-container {
+        display: flex; /* Use flexbox for alignment */
+        justify-content: space-between; /* Push logo left, nav right */
+        align-items: center; /* Vertically align items */
+        height: 70px; /* Set a fixed height for the header */
+        max-width: 1200px; /* Optional: Max width for header content */
+        margin: 0 auto; /* Center the container */
+    }
+
+    /* Logo Styles */
+    .logo-link {
+        display: inline-block; /* Treat the link as a block */
+    }
+
+    .logo-img {
+        height: 45px; /* Adjust logo height as needed */
+        width: auto; /* Maintain aspect ratio */
+        vertical-align: middle; /* Align logo nicely if needed */
+    }
+
+    /* Navbar Styles */
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem; /* Adjust spacing between nav items */
+    }
+
+    .navbar ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      font-size: 1rem; /* Slightly smaller font */
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    .navbar ul li a:hover {
+      color: #b8860b;
+    }
+    /* --- End Header Styles --- */
+
+        /* Menu icon */
+    .menu-icon {
+        display: none;
+        font-size: 28px;
+        cursor: pointer;
+        color: #000;
+        z-index: 10001;
+    }
+    
+    /* Close icon inside menu */
+    .close-icon {
+        display: none;
+        font-size: 24px;
+        cursor: pointer;
+        align-self: flex-end;
+        margin-bottom: 20px;
+        color: #000;
+    }
+    
+    @media (max-width: 768px) {
+        .menu-icon {
+        display: block;
+        }
+    
+        .navbar ul {
+        display: flex;
+        flex-direction: column;
+        background-color: #fff;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 70vh; /* not full height */
+        padding: 30px 20px;
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+        transition: right 0.3s ease-in-out;
+        z-index: 10000;
+        overflow-y: auto;
+        }
+    
+        .navbar ul.active {
+        right: 0;
+        }
+    
+        .navbar ul li {
+        padding: 15px 0;
+        border-bottom: 1px solid #eee;
+        }
+    
+        .navbar ul .close-icon {
+        display: block;
+        }
+    }
+  
+    
+
+    /* Main Content Area */
+    main {
+      flex-grow: 1;
+      padding: 30px 15px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .content-container {
+      width: 100%;
+      max-width: 900px;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2, h3 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    h2 {
+        margin-top: 0;
+    }
+
+    /* Cart Table Styles */
+    table {
+      width: 100%;
+      margin-bottom: 25px;
+      border-collapse: collapse;
+      background-color: #fff;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px 15px;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      font-weight: 600;
+    }
+
+    td:nth-child(2), /* Price column */
+    td:nth-child(4) { /* Subtotal column */
+      text-align: right;
+    }
+
+    td:nth-child(3) { /* Quantity column */
+        text-align: center;
+    }
+
+    input[type="number"] {
+      width: 60px;
+      padding: 8px;
+      text-align: center;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    /* Total Price Styles */
+    .total {
+      font-weight: bold;
+      margin-top: 10px;
+      margin-bottom: 30px;
+      font-size: 1.3rem;
+      text-align: right;
+      padding-right: 15px;
+    }
+
+    /* Shipping Details Form Styles */
+    .shipping-details {
+        margin-top: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+    }
+
+    textarea {
+      height: 100px;
+      resize: vertical;
+    }
+
+    /* Button Styles */
+    .order-button-container {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    button {
+      padding: 12px 25px;
+      background-color: #25d366;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #1ebe5d;
+    }
+
+    /* Footer Styles */
+    footer {
+      background-color: #222;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      margin-top: auto;
+      width: 100%;
+    }
+
+    footer p {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-container">
+          <a href="index.html" class="logo-link">
+            <img src="images/blackbg.png" alt="CrownWear Logo" class="logo-img">
+          </a>
+      
+          <div class="menu-icon" onclick="toggleMenu()">☰</div>
+
+      
+          <nav class="navbar">
+            <ul>
+              <span class="close-icon" onclick="toggleMenu()">✖</span>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="#about">About Us</a></li>
+              <li><a href="index.html#products">Products</a></li>
+              <li><a href="cart.html">Cart</a></li>
+              <li><a href="#contact">Contact Us</a></li>
+            </ul>
+          </nav>
+          
+        </div>
+      </header>
+      
+
+  <main>
+    <div class="content-container">
+      <h2>Your Cart</h2>
+
+      <table id="cartTable">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th style="text-align: right;">Price (GHS)</th>
+            <th style="text-align: center;">Qty</th>
+            <th style="text-align: right;">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          </tbody>
+      </table>
+
+      <p class="total">Total: GHS <span id="grandTotal">0.00</span></p>
+
+      <div class="shipping-details">
+          <h3>Shipping Details</h3>
+          <div class="form-group">
+            <input type="text" id="customerName" placeholder="Your Full Name" required />
+          </div>
+          <div class="form-group">
+            <input type="text" id="phoneNumber" placeholder="Phone Number (e.g., 0551234567)" required />
+          </div>
+          <div class="form-group">
+            <textarea id="address" placeholder="Shipping Address" required></textarea>
+          </div>
+      </div>
+
+      <div class="order-button-container">
+        <button onclick="orderViaWhatsApp()">Order via WhatsApp</button>
+      </div>
+
+    </div> </main>
+
+  <footer>
+    <p>&copy; 2025 CrownWear. All rights reserved.</p>
+  </footer>
+  <script>
+    const ownerWhatsAppNumber = "233550008170"; // Owner's WhatsApp number
+
+    function renderCart() {
+      const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+      const tbody = document.querySelector("#cartTable tbody");
+      tbody.innerHTML = "";
+      let grandTotal = 0;
+
+      if (cart.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 20px;">Your cart is empty.</td></tr>';
+          document.getElementById("grandTotal").textContent = "0.00";
+          return;
+      }
+
+      cart.forEach((item, index) => {
+        const price = parseFloat(item.price) || 0;
+        const quantity = parseInt(item.quantity) || 0;
+        const subtotal = price * quantity;
+        grandTotal += subtotal;
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td style="text-align: right;">GHS ${price.toFixed(2)}</td>
+          <td style="text-align: center;"><input type="number" value="${quantity}" min="1" onchange="updateQty(${index}, this.value)"></td>
+          <td style="text-align: right;">GHS ${subtotal.toFixed(2)}</td>
+        `;
+        tbody.appendChild(row);
+      });
+
+      document.getElementById("grandTotal").textContent = grandTotal.toFixed(2);
+    }
+
+    function updateQty(index, qty) {
+      const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+      const newQuantity = parseInt(qty);
+
+      if (isNaN(newQuantity) || newQuantity < 1) {
+          alert("Quantity must be at least 1.");
+          renderCart();
+          return;
+      }
+
+      if (cart[index]) {
+          cart[index].quantity = newQuantity;
+          sessionStorage.setItem("cart", JSON.stringify(cart));
+          renderCart();
+      }
+    }
+
+    function orderViaWhatsApp() {
+      const name = document.getElementById("customerName").value.trim();
+      const phoneInput = document.getElementById("phoneNumber").value.trim();
+      const address = document.getElementById("address").value.trim();
+      const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+
+      if (!name) {
+          alert("Please enter your Full Name.");
+          return;
+      }
+       if (!phoneInput) {
+          alert("Please enter your Phone Number.");
+          return;
+      }
+       if (!/^0\d{9}$/.test(phoneInput)) {
+           alert("Please enter a valid Ghanaian phone number (e.g., 0551234567).");
+           return;
+       }
+      if (!address) {
+          alert("Please enter your Shipping Address.");
+          return;
+      }
+      if (cart.length === 0) {
+        alert("Your cart is empty. Please add items before ordering.");
+        return;
+      }
+
+      let message = `*New Order from CrownWear Website*\n\n`;
+      message += `👤 *Name:* ${name}\n`;
+      message += `📞 *Phone:* ${phoneInput}\n`;
+      message += `📍 *Address:* ${address}\n\n`;
+      message += `🛒 *Order Summary:*\n`;
+
+      let total = 0;
+      cart.forEach(item => {
+        const price = parseFloat(item.price) || 0;
+        const quantity = parseInt(item.quantity) || 0;
+        const sub = price * quantity;
+        total += sub;
+        message += `- ${item.name} x ${quantity} = GHS ${sub.toFixed(2)}\n`;
+      });
+
+      message += `\n💰 *Grand Total:* GHS ${total.toFixed(2)}\n\n`;
+      message += `_Please confirm availability and payment details._`;
+
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappURL = `https://wa.me/${ownerWhatsAppNumber}?text=${encodedMessage}`;
+
+      window.open(whatsappURL, "_blank");
+
+      // --- UNCOMMENTED BLOCK ---
+      // Clear cart and fields after sending
+      sessionStorage.removeItem("cart");
+      document.getElementById("customerName").value = "";
+      document.getElementById("phoneNumber").value = "";
+      document.getElementById("address").value = "";
+      renderCart(); // Re-render the cart (will show as empty)
+      alert("Your order request has been opened in WhatsApp! The cart and fields have been cleared.");
+      // --- END UNCOMMENTED BLOCK ---
+    }
+
+    // Initial render of the cart when the page loads
+    document.addEventListener('DOMContentLoaded', renderCart);
+
+  
+  </script>
+
+  <script>
+    function toggleMenu() {
+      const nav = document.querySelector(".navbar ul");
+      nav.classList.toggle("active");
+    }
+  </script>
+  
+</body>
+</html>

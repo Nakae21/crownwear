@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CrownWear - T-Shirts & Curb Hats</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: #f5f5f5;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+    }
+
+  
+    .landing {
+        background: url('images/witebg1.png') center/cover no-repeat;
+        height: 100vh;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      .navbar {
+        position: absolute;
+        top: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        z-index: 10;
+      }
+      
+      .navbar ul {
+        list-style: none;
+        display: flex;
+        gap: 2rem;
+        padding: 0;
+        margin: 0;
+      }
+      
+      .navbar ul li a {
+        text-decoration: none;
+        color: rgb(0, 0, 0);
+        font-weight: 600;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        transition: color 0.3s;
+      }
+      
+      .navbar ul li a:hover {
+        color: gold;
+      }
+           
+      /*Product Page*/
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 40px 20px;
+    }
+
+    .product-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .product-card h2 {
+      font-size: 18px;
+      margin: 15px 0 10px;
+    }
+
+    .product-card .price {
+      font-weight: bold;
+      color: #444;
+      margin-bottom: 10px;
+    }
+
+    .buy-btn {
+      display: inline-block;
+      background: #25D366;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .buy-btn:hover {
+      background: #1ebe57;
+    }
+
+    footer {
+        margin-top: auto;
+        background-color: #222;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+      }
+  </style>
+</head>
+<body>
+    <section class="landing">
+        <nav class="navbar">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#products">Product</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+          </ul>
+        </nav>
+      </section>    
+
+    <!-- Product Section -->
+    <section class="products" id="products">
+        <div class="product-card">
+        <img src="images/Back Net Curb White and Green.jpg" alt="White and Green">
+        <h2>White and Green</h2>
+        <p class="price">GHS 50</p>
+        <button onclick="addToCart('White and Green', 50)">Add to Cart</button>
+        </div>
+    
+        <div class="product-card">
+        <img src="images/Back Net Curb White and Yellow.jpg" alt="White and Yellow">
+        <h2>White and Yellow</h2>
+        <p class="price">GHS 50</p>
+        <button onclick="addToCart('White and Yellow', 50)">Add to Cart</button>
+        </div>
+    
+        <div class="product-card">
+        <img src="images/Back Net Curb White and Soldier Green.jpg" alt="White and Soldier Green">
+        <h2>White and Soldier Green</h2>
+        <p class="price">GHS 50</p>
+        <button onclick="addToCart('White and Soldier Green', 50)">Add to Cart</button>
+        </div>
+    
+        <div class="product-card">
+        <img src="images/Back Net Curb White and Red.jpg" alt="White and Red">
+        <h2>White and Red</h2>
+        <p class="price">GHS 50</p>
+        <button onclick="addToCart('White and Red', 50)">Add to Cart</button>
+        </div>
+    
+        <div class="product-card">
+        <img src="images/Back Net Curb Black and Yellow.jpg" alt="Black and Yellow">
+        <h2>Black and Yellow</h2>
+        <p class="price">GHS 50</p>
+        <button onclick="addToCart('Black and Yellow', 50)">Add to Cart</button>
+        </div>
+    
+        <div class="product-card">
+        <img src="images/Back Net Curb Black.jpg" alt="Black">
+        <h2>Black</h2>
+        <p class="price">GHS 50</p>
+        <button onclick="addToCart('Black', 50)">Add to Cart</button>
+        </div>
+    
+        <div class="product-card">
+        <img src="images/Back Net Curb White and Blue.jpg" alt="White and Blue">
+        <h2>White and Blue</h2>
+        <p class="price">GHS 50</p>
+        <button onclick="addToCart('White and Blue', 50)">Add to Cart</button>
+        </div>
+    
+        <div class="product-card">
+        <img src="images/Back Net Curb White and Light Red.jpg" alt="White and Light Red">
+        <h2>White and Light Red</h2>
+        <p class="price">GHS 50</p>
+        <button onclick="addToCart('White and Light Red', 50)">Add to Cart</button>
+        </div>
+    
+        <div class="product-card">
+        <img src="images/Back Net Curb White and Sbrown.jpg" alt="White and Sbrown">
+        <h2>White and Sbrown</h2>
+        <p class="price">GHS 50</p>
+        <button onclick="addToCart('White and Sbrown', 50)">Add to Cart</button>
+        </div>
+    
+        <div class="product-card">
+        <img src="images/Back Net Curb White and Light Blue.jpg" alt="White and Light Blue">
+        <h2>White and Light Blue</h2>
+        <p class="price">GHS 50</p>
+        <button onclick="addToCart('White and Light Blue', 50)">Add to Cart</button>
+        </div>
+    
+        <div class="product-card">
+        <img src="images/Back Net Curb White and Black.jpg" alt="White and Black">
+        <h2>White and Black</h2>
+        <p class="price">GHS 50</p>
+        <button onclick="addToCart('White and Black', 50)">Add to Cart</button>
+        </div>
+    
+        <div class="product-card">
+        <img src="images/Back Net Curb White and Blue1.jpg" alt="White and Blue1">
+        <h2>White and Blue1</h2>
+        <p class="price">GHS 50</p>
+        <button onclick="addToCart('White and Blue1', 50)">Add to Cart</button>
+        </div>
+    
+        <div class="product-card">
+        <img src="images/Back Net Curb White and Green1.jpg" alt="White and Green1">
+        <h2>White and Green1</h2>
+        <p class="price">GHS 50</p>
+        <button onclick="addToCart('White and Green1', 50)">Add to Cart</button>
+        </div>
+    
+        <div class="product-card">
+        <img src="images/Back Net Curb Black1.jpg" alt="Black1">
+        <h2>Black1</h2>
+        <p class="price">GHS 50</p>
+        <button onclick="addToCart('Black1', 50)">Add to Cart</button>
+        </div>
+    
+        <div class="product-card">
+        <img src="images/Back Net Curb Red and Black.jpg" alt="Red and Black">
+        <h2>Red and Black</h2>
+        <p class="price">GHS 50</p>
+        <button onclick="addToCart('Red and Black', 50)">Add to Cart</button>
+        </div>
+    
+        <div class="product-card">
+        <img src="images/Back Net Curb White and Brown.jpg" alt="White and Brown">
+        <h2>White and Brown</h2>
+        <p class="price">GHS 50</p>
+        <button onclick="addToCart('White and Brown', 50)">Add to Cart</button>
+        </div>
+    
+        <div class="product-card">
+        <img src="images/Back Net Curb White and Orange.jpg" alt="White and Orange">
+        <h2>White and Orange</h2>
+        <p class="price">GHS 50</p>
+        <button onclick="addToCart('White and Orange', 50)">Add to Cart</button>
+        </div>
+    
+        <div class="product-card">
+        <img src="images/Back Net Curb Brown.jpg" alt="Brown">
+        <h2>Brown</h2>
+        <p class="price">GHS 50</p>
+        <button onclick="addToCart('Brown', 50)">Add to Cart</button>
+        </div>
+    
+        <div class="product-card">
+        <img src="images/Back Net Curb White and Ash.jpg" alt="White and Ash">
+        <h2>White and Ash</h2>
+        <p class="price">GHS 50</p>
+        <button onclick="addToCart('White and Ash', 50)">Add to Cart</button>
+        </div>
+    </section>
+    
+
+    <footer>
+        <p>&copy; 2025 CrownWear. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function addToCart(name, price) {
+        let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+        const existing = cart.find(item => item.name === name);
+        if (existing) {
+            existing.quantity += 1;
+        } else {
+            cart.push({ name, price, quantity: 1 });
+        }
+        sessionStorage.setItem("cart", JSON.stringify(cart));
+        alert(name + " added to cart!");
+        }
+    </script>
+</body>
+</html>
