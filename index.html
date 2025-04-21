@@ -19,46 +19,115 @@
       flex-direction: column;
     }
 
-  
+    /* Header */
+    .header {
+      position: fixed;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 10px 30px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-img {
+      height: 50px;
+    }
+
+    .menu-icon {
+      display: none;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    .navbar ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .navbar ul li a {
+      text-decoration: none;
+      color: #000;
+      font-weight: 600;
+      font-size: 1rem;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    .navbar ul li a:hover {
+      color: gold;
+    }
+
+    .close-icon {
+      display: none;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+
+    /* Landing Section */
     .landing {
-        background: url('images/witebg1.png') center/cover no-repeat;
-        height: 100vh;
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/crownwear.jpg') center/cover no-repeat;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding-top: 80px;
+    }
+
+    .welcome-text h1 {
+      font-size: 3rem;
+      color: white;
+      text-shadow: 2px 2px 10px black;
+    }
+
+    .welcome-text p {
+      font-size: 1.5rem;
+      color: white;
+      margin-top: 1rem;
+      text-shadow: 1px 1px 5px black;
+    }
+
+    /* Responsive Menu */
+    @media (max-width: 768px) {
+      .menu-icon {
+        display: block;
       }
-      
+
       .navbar {
-        position: absolute;
-        top: 20px;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        z-index: 10;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background-color: white;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 2rem;
+        transition: right 0.3s ease;
       }
-      
+
+      .navbar.active {
+        right: 0;
+      }
+
       .navbar ul {
-        list-style: none;
-        display: flex;
-        gap: 2rem;
-        padding: 0;
-        margin: 0;
+        flex-direction: column;
+        gap: 1.5rem;
       }
-      
-      .navbar ul li a {
-        text-decoration: none;
-        color: rgb(0, 0, 0);
-        font-weight: 600;
-        font-size: 1.1rem;
-        text-transform: uppercase;
-        transition: color 0.3s;
+
+      .close-icon {
+        display: block;
       }
-      
-      .navbar ul li a:hover {
-        color: gold;
-      }
-           
+    }
+    
       /*Product Page*/
     .products {
       display: grid;
@@ -122,17 +191,35 @@
   </style>
 </head>
 <body>
-    <section class="landing">
+        <!-- Header -->
+    <header class="header">
+      <div class="header-container">
+        <a href="index.html" class="logo-link">
+          <img src="images/blackbg.png" alt="CrownWear Logo" class="logo-img">
+        </a>
+
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+
         <nav class="navbar">
           <ul>
+            <span class="close-icon" onclick="toggleMenu()">✖</span>
             <li><a href="index.html">Home</a></li>
             <li><a href="#about">About Us</a></li>
-            <li><a href="#products">Product</a></li>
+            <li><a href="#products">Products</a></li>
             <li><a href="cart.html">Cart</a></li>
             <li><a href="#contact">Contact Us</a></li>
           </ul>
         </nav>
-      </section>    
+      </div>
+    </header>
+
+    <!-- Landing Section -->
+    <section class="landing">
+      <div class="welcome-text">
+        <h1>Welcome to CrownWear</h1>
+        <p>Your Crown, Your Story</p>
+      </div>
+    </section>
 
     <!-- Product Section -->
     <section class="products" id="products">
@@ -287,6 +374,11 @@
         sessionStorage.setItem("cart", JSON.stringify(cart));
         alert(name + " added to cart!");
         }
+    </script>
+    <script>
+      function toggleMenu() {
+        document.querySelector('.navbar').classList.toggle('active');
+      }
     </script>
 </body>
 </html>
