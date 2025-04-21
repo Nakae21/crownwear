@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CrownWear - T-Shirts & Curb Hats</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: #f5f5f5;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 10px 30px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-img {
+      height: 50px;
+    }
+
+    .menu-icon {
+      display: none;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    .navbar ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .navbar ul li a {
+      text-decoration: none;
+      color: #000;
+      font-weight: 600;
+      font-size: 1rem;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    .navbar ul li a:hover {
+      color: gold;
+    }
+
+    .close-icon {
+      display: none;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+
+    /* Landing Section */
+    .landing {
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/crownwear.jpg') center/cover no-repeat;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding-top: 80px;
+      margin-bottom: 80px;
+    }
+
+    .welcome-text h1 {
+      font-size: 3rem;
+      color: white;
+      text-shadow: 2px 2px 10px black;
+    }
+
+    .welcome-text p {
+      font-size: 1.5rem;
+      color: rgb(252, 248, 9);
+      margin-top: 1rem;
+      text-shadow: 1px 1px 5px black;
+    }
+
+    /* Responsive Menu */
+    @media (max-width: 768px) {
+      .menu-icon {
+        display: block;
+      }
+
+      .navbar {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background-color: white;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 2rem;
+        transition: right 0.3s ease;
+      }
+
+      .navbar.active {
+        right: 0;
+      }
+
+      .navbar ul {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .close-icon {
+        display: block;
+      }
+    }
+
+    /* ==== PRODUCT SECTION ==== */
+#product-section {
+  padding: 60px 20px;
+  background-color: #f9f9f9;
+  overflow-x: hidden;
+}
+
+/* Title */
+.product-titles {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.product-titles h2 {
+  font-size: 28px;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+.product-titles p {
+  font-size: 16px;
+  color: #666;
+}
+
+/* Toggle Buttons */
+#product-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+  gap: 10px;
+}
+
+.toggle-btn {
+  padding: 10px 20px;
+  font-weight: bold;
+  background-color: #eee;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.toggle-btn:hover {
+  background-color: #ddd;
+}
+
+.toggle-btn.active {
+  background-color: #000;
+  color: #fff;
+}
+
+/* Product Grid Container */
+.products,
+.product-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  padding: 20px 10px;
+  max-width: 1400px;
+  margin: 0 auto; /* centers the grid */
+  box-sizing: border-box;
+}
+
+
+/* Hide inactive tab */
+.product-container.hidden {
+  display: none !important;
+}
+
+/* Product Card */
+.product-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+}
+
+/* Product Image */
+.product-card img {
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+/* Product Name */
+.product-card h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 10px 0;
+  color: #222;
+}
+
+/* Price */
+.product-card .price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #444;
+  margin-bottom: 12px;
+}
+
+/* Custom Text Checkbox Label */
+.product-card label {
+  display: block;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 8px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.product-card input[type="checkbox"] {
+  margin-right: 8px;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+/* Sticker */
+.custom-sticker {
+  display: none;
+  background-color: #e53935;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 20px;
+  width: fit-content;
+  margin: 0 auto 10px auto;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.custom-sticker.active {
+  display: inline-block;
+}
+
+/* Buy Button */
+.product-card button,
+.buy-btn {
+  background-color: #25D366;
+  color: #fff;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product-card button:hover,
+.buy-btn:hover {
+  background-color: #1ebe57;
+}
+
+/* Landing section spacing */
+.landing,
+.hero {
+  margin-bottom: 60px;
+}
+
+/* === RESPONSIVE STYLES === */
+@media (max-width: 1024px) {
+  .product-container {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .product-titles h2 {
+    font-size: 22px;
+  }
+
+  .product-titles p {
+    font-size: 14px;
+  }
+
+  .toggle-btn {
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+
+  .product-card img {
+    height: auto;
+  }
+
+  .product-card h2 {
+    font-size: 16px;
+  }
+
+  .product-card .price {
+    font-size: 14px;
+  }
+
+  .product-card button {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-container {
+    grid-template-columns: 1fr;
+  }
+
+  .product-card {
+    padding: 10px;
+  }
+
+  .toggle-btn {
+    width: 100%;
+  }
+}
+
+
+
+    footer {
+        margin-top: auto;
+        background-color: #222;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+      }
+  </style>
+</head>
+<body>
+        <!-- Header -->
+    <header class="header">
+      <div class="header-container">
+        <a href="index.html" class="logo-link">
+          <img src="images/blackbg.png" alt="CrownWear Logo" class="logo-img">
+        </a>
+
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+
+        <nav class="navbar">
+          <ul>
+            <span class="close-icon" onclick="toggleMenu()">✖</span>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Landing Section -->
+    <section class="landing">
+      <div class="welcome-text">
+        <h1>Welcome to CrownWear</h1>
+        <p>Your Crown, Your Story</p>
+      </div>
+    </section>
+
+        <!-- Product Section -->
+    <section class="products-section" id="products">
+      <div id="product-buttons">
+        <button class="toggle-btn" onclick="showProducts('curbs')" data-type="curbs">Curbs / Hats</button>
+        <button class="toggle-btn active" onclick="showProducts('fashion')" data-type="fashion">Fashion Tops</button>
+      </div>
+      
+
+      <!-- Curbs / Hats -->
+      <div class="product-card" data-index="1" data-baseprice="40">
+        <img src="images/Back Net Curb White and Green.jpg" alt="White and Green">
+        <h2>White and Green</h2>
+        <p class="price" id="price-1">GHS 40</p>
+        <label><input type="checkbox" id="customize-1" onchange="toggleCustomization(1)"> Add custom text (+GHS 10)</label>
+        <div id="sticker-1" class="sticker">+10</div>
+        <button onclick="addToCart('White and Green', 1)">Add to Cart</button>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="product-card" data-index="2" data-baseprice="40">
+        <img src="images/Back Net Curb White and Yellow.jpg" alt="White and Yellow">
+        <h2>White and Yellow</h2>
+        <p class="price" id="price-2">GHS 40</p>
+        <label><input type="checkbox" id="customize-2" onchange="toggleCustomization(2)"> Add custom text (+GHS 10)</label>
+        <div id="sticker-2" class="sticker">+10</div>
+        <button onclick="addToCart('White and Yellow', 2)">Add to Cart</button>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="product-card" data-index="3" data-baseprice="40">
+        <img src="images/Back Net Curb White and Soldier Green.jpg" alt="White and Soldier Green">
+        <h2>White and Soldier Green</h2>
+        <p class="price" id="price-3">GHS 40</p>
+        <label><input type="checkbox" id="customize-3" onchange="toggleCustomization(3)"> Add custom text (+GHS 10)</label>
+        <div id="sticker-3" class="sticker">+10</div>
+        <button onclick="addToCart('White and Soldier Green', 3)">Add to Cart</button>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="product-card" data-index="4" data-baseprice="50">
+        <img src="images/Back Net Curb White and Red.jpg" alt="White and Red">
+        <h2>White and Red</h2>
+        <p class="price" id="price-4">GHS 50</p>
+        <label><input type="checkbox" id="customize-4" onchange="toggleCustomization(4)"> Add custom text (+GHS 10)</label>
+        <div id="sticker-4" class="sticker">+10</div>
+        <button onclick="addToCart('White and Red', 4)">Add to Cart</button>
+      </div>
+
+      <!-- Product 5 -->
+      <div class="product-card" data-index="5" data-baseprice="40">
+        <img src="images/Back Net Curb Black and Yellow.jpg" alt="Black and Yellow">
+        <h2>Black and Yellow</h2>
+        <p class="price" id="price-5">GHS 40</p>
+        <label><input type="checkbox" id="customize-5" onchange="toggleCustomization(5)"> Add custom text (+GHS 10)</label>
+        <div id="sticker-5" class="sticker">+10</div>
+        <button onclick="addToCart('Black and Yellow', 5)">Add to Cart</button>
+      </div>
+
+      <!-- Product 6 -->
+      <div class="product-card" data-index="6" data-baseprice="40">
+        <img src="images/Back Net Curb Black.jpg" alt="Black">
+        <h2>Black</h2>
+        <p class="price" id="price-6">GHS 40</p>
+        <label><input type="checkbox" id="customize-6" onchange="toggleCustomization(6)"> Add custom text (+GHS 10)</label>
+        <div id="sticker-6" class="sticker">+10</div>
+        <button onclick="addToCart('Black', 6)">Add to Cart</button>
+      </div>
+
+      <!-- Product 7 -->
+      <div class="product-card" data-index="7" data-baseprice="40">
+        <img src="images/Back Net Curb White and Blue.jpg" alt="White and Blue">
+        <h2>White and Blue</h2>
+        <p class="price" id="price-7">GHS 40</p>
+        <label><input type="checkbox" id="customize-7" onchange="toggleCustomization(7)"> Add custom text (+GHS 10)</label>
+        <div id="sticker-7" class="sticker">+10</div>
+        <button onclick="addToCart('White and Blue', 7)">Add to Cart</button>
+      </div>
+
+      <!-- Product 8 -->
+      <div class="product-card" data-index="8" data-baseprice="40">
+        <img src="images/Back Net Curb White and Light Red.jpg" alt="White and Light Red">
+        <h2>White and Light Red</h2>
+        <p class="price" id="price-8">GHS 40</p>
+        <label><input type="checkbox" id="customize-8" onchange="toggleCustomization(8)"> Add custom text (+GHS 10)</label>
+        <div id="sticker-8" class="sticker">+10</div>
+        <button onclick="addToCart('White and Light Red', 8)">Add to Cart</button>
+      </div>
+
+      <!-- Product 9 -->
+      <div class="product-card" data-index="9" data-baseprice="40">
+        <img src="images/Back Net Curb White and Sbrown.jpg" alt="White and Sbrown">
+        <h2>White and Sbrown</h2>
+        <p class="price" id="price-9">GHS 40</p>
+        <label><input type="checkbox" id="customize-9" onchange="toggleCustomization(9)"> Add custom text (+GHS 10)</label>
+        <div id="sticker-9" class="sticker">+10</div>
+        <button onclick="addToCart('White and Sbrown', 9)">Add to Cart</button>
+      </div>
+
+      <!-- Product 10 -->
+      <div class="product-card" data-index="10" data-baseprice="40">
+        <img src="images/Back Net Curb White and Light Blue.jpg" alt="White and Light Blue">
+        <h2>White and Light Blue</h2>
+        <p class="price" id="price-10">GHS 40</p>
+        <label><input type="checkbox" id="customize-10" onchange="toggleCustomization(10)"> Add custom text (+GHS 10)</label>
+        <div id="sticker-10" class="sticker">+10</div>
+        <button onclick="addToCart('White and Light Blue', 10)">Add to Cart</button>
+      </div>
+
+      <!-- Product 11 -->
+      <div class="product-card" data-index="11" data-baseprice="40">
+        <img src="images/Back Net Curb White and Black.jpg" alt="White and Black">
+        <h2>White and Black</h2>
+        <p class="price" id="price-11">GHS 40</p>
+        <label><input type="checkbox" id="customize-11" onchange="toggleCustomization(11)"> Add custom text (+GHS 10)</label>
+        <div id="sticker-11" class="sticker">+10</div>
+        <button onclick="addToCart('White and Black', 11)">Add to Cart</button>
+      </div>
+
+      <!-- Product 12 -->
+      <div class="product-card" data-index="12" data-baseprice="40">
+        <img src="images/Back Net Curb White and Blue1.jpg" alt="White and Blue1">
+        <h2>White and Blue1</h2>
+        <p class="price" id="price-12">GHS 40</p>
+        <label><input type="checkbox" id="customize-12" onchange="toggleCustomization(12)"> Add custom text (+GHS 10)</label>
+        <div id="sticker-12" class="sticker">+10</div>
+        <button onclick="addToCart('White and Blue1', 12)">Add to Cart</button>
+      </div>
+
+      <!-- Product 13 -->
+      <div class="product-card" data-index="13" data-baseprice="40">
+        <img src="images/Back Net Curb White and Green1.jpg" alt="White and Green1">
+        <h2>White and Green1</h2>
+        <p class="price" id="price-13">GHS 40</p>
+        <label><input type="checkbox" id="customize-13" onchange="toggleCustomization(13)"> Add custom text (+GHS 10)</label>
+        <div id="sticker-13" class="sticker">+10</div>
+        <button onclick="addToCart('White and Green1', 13)">Add to Cart</button>
+      </div>
+
+      <!-- Product 14 -->
+      <div class="product-card" data-index="14" data-baseprice="40">
+        <img src="images/Back Net Curb Black1.jpg" alt="Black1">
+        <h2>Black1</h2>
+        <p class="price" id="price-14">GHS 40</p>
+        <label><input type="checkbox" id="customize-14" onchange="toggleCustomization(14)"> Add custom text (+GHS 10)</label>
+        <div id="sticker-14" class="sticker">+10</div>
+        <button onclick="addToCart('Black1', 14)">Add to Cart</button>
+      </div>
+
+      <!-- Product 15 -->
+      <div class="product-card" data-index="15" data-baseprice="40">
+        <img src="images/Back Net Curb Red and Black.jpg" alt="Red and Black">
+        <h2>Red and Black</h2>
+        <p class="price" id="price-15">GHS 40</p>
+        <label><input type="checkbox" id="customize-15" onchange="toggleCustomization(15)"> Add custom text (+GHS 10)</label>
+        <div id="sticker-15" class="sticker">+10</div>
+        <button onclick="addToCart('Red and Black', 15)">Add to Cart</button>
+      </div>
+
+      <!-- Product 16 -->
+      <div class="product-card" data-index="16" data-baseprice="40">
+        <img src="images/Back Net Curb White and Brown.jpg" alt="White and Brown">
+        <h2>White and Brown</h2>
+        <p class="price" id="price-16">GHS 40</p>
+        <label><input type="checkbox" id="customize-16" onchange="toggleCustomization(16)"> Add custom text (+GHS 10)</label>
+        <div id="sticker-16" class="sticker">+10</div>
+        <button onclick="addToCart('White and Brown', 16)">Add to Cart</button>
+      </div>
+
+      <!-- Product 17 -->
+      <div class="product-card" data-index="17" data-baseprice="40">
+        <img src="images/Back Net Curb White and Orange.jpg" alt="White and Orange">
+        <h2>White and Orange</h2>
+        <p class="price" id="price-17">GHS 40</p>
+        <label><input type="checkbox" id="customize-17" onchange="toggleCustomization(17)"> Add custom text (+GHS 10)</label>
+        <div id="sticker-17" class="sticker">+10</div>
+        <button onclick="addToCart('White and Orange', 17)">Add to Cart</button>
+      </div>
+
+      <!-- Product 18 -->
+      <div class="product-card" data-index="18" data-baseprice="40">
+        <img src="images/Back Net Curb Brown.jpg" alt="Brown">
+        <h2>Brown</h2>
+        <p class="price" id="price-18">GHS 40</p>
+        <label><input type="checkbox" id="customize-18" onchange="toggleCustomization(18)"> Add custom text (+GHS 10)</label>
+        <div id="sticker-18" class="sticker">+10</div>
+        <button onclick="addToCart('Brown', 18)">Add to Cart</button>
+      </div>
+
+      <!-- Product 19 -->
+      <div class="product-card" data-index="19" data-baseprice="40">
+        <img src="images/Back Net Curb White and Ash.jpg" alt="White and Ash">
+        <h2>White and Ash</h2>
+        <p class="price" id="price-19">GHS 40</p>
+        <label><input type="checkbox" id="customize-19" onchange="toggleCustomization(19)"> Add custom text (+GHS 10)</label>
+        <div id="sticker-19" class="sticker">+10</div>
+        <button onclick="addToCart('White and Ash', 19)">Add to Cart</button>
+      </div>
+      </div>
+
+          <!-- Fashion Tops -->
+          <div class="product-container hidden" id="fashion-products">        <div class="product-card">
+          <img src="images/top1_black.jpg" alt="White Tee">
+          <h2>White Tee</h2>
+          <p class="price">GHS 60</p>
+          <button onclick="addToCart('White Tee', 60)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <img src="images/top1_white.jpg" alt="Black Tee">
+          <h2>Black Tee</h2>
+          <p class="price">GHS 60</p>
+          <button onclick="addToCart('Black Tee', 60)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <img src="images/top2_black.jpg" alt="Black Tee">
+          <h2>Black Tee</h2>
+          <p class="price">GHS 60</p>
+          <button onclick="addToCart('Black Tee', 60)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <img src="images/top2_white.jpg" alt="Black Tee">
+          <h2>Black Tee</h2>
+          <p class="price">GHS 60</p>
+          <button onclick="addToCart('Black Tee', 60)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <img src="images/top3_black.jpg" alt="Black Tee">
+          <h2>Black Tee</h2>
+          <p class="price">GHS 60</p>
+          <button onclick="addToCart('Black Tee', 60)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <img src="images/top3_white.jpg" alt="Black Tee">
+          <h2>Black Tee</h2>
+          <p class="price">GHS 60</p>
+          <button onclick="addToCart('Black Tee', 60)">Add to Cart</button>
+        </div>
+
+        <!-- Add more fashion tops here -->
+      </div>
+    </section>
+    
+
+    <footer>
+        <p>&copy; 2025 CrownWear. All rights reserved.</p>
+    </footer>
+
+    <script>
+      function toggleCustomization(index) {
+        const checkbox = document.getElementById(`customize-${index}`);
+        const sticker = document.getElementById(`sticker-${index}`);
+        const priceTag = document.getElementById(`price-${index}`);
+        const productCard = document.querySelector(`.product-card[data-index="${index}"]`);
+        const basePrice = parseInt(productCard.dataset.baseprice);
+    
+        if (checkbox.checked) {
+          sticker.style.display = 'inline-block';
+          priceTag.textContent = `GHS ${basePrice + 10}`;
+        } else {
+          sticker.style.display = 'none';
+          priceTag.textContent = `GHS ${basePrice}`;
+        }
+      }
+    
+      function addToCart(name, index) {
+        const checkbox = document.getElementById(`customize-${index}`);
+        const productCard = document.querySelector(`.product-card[data-index="${index}"]`);
+        const basePrice = parseInt(productCard.dataset.baseprice);
+        const finalPrice = checkbox.checked ? basePrice + 10 : basePrice;
+        const customText = checkbox.checked ? "Yes" : "No";
+    
+        let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+    
+        // Include customText in cart item name so it tracks separately
+        const itemName = name + (customText === "Yes" ? " (Custom Text)" : "");
+    
+        const existing = cart.find(item => item.name === itemName);
+        if (existing) {
+          existing.quantity += 1;
+        } else {
+          cart.push({ name: itemName, price: finalPrice, quantity: 1 });
+        }
+    
+        sessionStorage.setItem("cart", JSON.stringify(cart));
+        alert(`${itemName} added to cart at GHS ${finalPrice}!`);
+      }
+    </script>
+    
+    <script>
+      function toggleMenu() {
+        document.querySelector('.navbar').classList.toggle('active');
+      }
+    </script>
+
+    <script>
+      function showProducts(type) {
+        const curbs = document.getElementById('curbs-products');
+        const fashion = document.getElementById('fashion-products');
+        const buttons = document.querySelectorAll('.toggle-btn');
+    
+        // Hide both, then show the selected
+        curbs.classList.add('hidden');
+        fashion.classList.add('hidden');
+    
+        if (type === 'curbs') {
+          curbs.classList.remove('hidden');
+        } else {
+          fashion.classList.remove('hidden');
+        }
+    
+        // Update active button style
+        buttons.forEach(btn => btn.classList.remove('active'));
+        document.querySelector(`.toggle-btn[data-type="${type}"]`).classList.add('active');
+      }
+    </script>
+    
+</body>
+</html>

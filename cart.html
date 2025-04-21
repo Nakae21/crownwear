@@ -321,7 +321,7 @@
       <p class="total">Total: GHS <span id="grandTotal">0.00</span></p>
 
       <div class="shipping-details">
-          <h3>Shipping Details</h3>
+          <h3>Location Details</h3>
           <div class="form-group">
             <input type="text" id="customerName" placeholder="Your Full Name" required />
           </div>
@@ -329,7 +329,15 @@
             <input type="text" id="phoneNumber" placeholder="Phone Number (e.g., 0551234567)" required />
           </div>
           <div class="form-group">
-            <textarea id="address" placeholder="Shipping Address" required></textarea>
+            <textarea id="address" placeholder="Location Address" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="addCustomTextCheckbox" onchange="toggleCustomText()"> Add custom text
+            </label>
+          </div>
+          <div class="form-group" id="customTextContainer" style="display: none;">
+            <textarea id="customText" placeholder="Enter your custom text here..."></textarea>
           </div>
       </div>
 
@@ -398,6 +406,9 @@
       const phoneInput = document.getElementById("phoneNumber").value.trim();
       const address = document.getElementById("address").value.trim();
       const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+      const addCustomText = document.getElementById("addCustomTextCheckbox").checked;
+      const customTextValue = document.getElementById("customText").value.trim();
+
 
       if (!name) {
           alert("Please enter your Full Name.");
@@ -419,6 +430,10 @@
         alert("Your cart is empty. Please add items before ordering.");
         return;
       }
+      if (addCustomText && !customTextValue) {
+        alert("Please enter your custom text.");
+        return;
+      }
 
       let message = `*New Order from CrownWear Website*\n\n`;
       message += `👤 *Name:* ${name}\n`;
@@ -434,7 +449,10 @@
         total += sub;
         message += `- ${item.name} x ${quantity} = GHS ${sub.toFixed(2)}\n`;
       });
-
+      if (addCustomText && customTextValue) {
+        message += `🖋 *Custom Text:* ${customTextValue}\n`;
+      }
+      
       message += `\n💰 *Grand Total:* GHS ${total.toFixed(2)}\n\n`;
       message += `_Please confirm availability and payment details._`;
 
@@ -457,7 +475,13 @@
     // Initial render of the cart when the page loads
     document.addEventListener('DOMContentLoaded', renderCart);
 
-  
+  //custom text
+    function toggleCustomText() {
+      const customTextContainer = document.getElementById("customTextContainer");
+      const checkbox = document.getElementById("addCustomTextCheckbox");
+      customTextContainer.style.display = checkbox.checked ? "block" : "none";
+    }
+    
   </script>
 
   <script>
