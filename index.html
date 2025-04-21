@@ -80,6 +80,7 @@
       align-items: center;
       text-align: center;
       padding-top: 80px;
+      margin-bottom: 80px;
     }
 
     .welcome-text h1 {
@@ -127,59 +128,179 @@
         display: block;
       }
     }
-    
-      /*Product Page*/
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 40px 20px;
+
+   /* ==== PRODUCT SECTION ==== */
+
+  #product-section {
+    padding: 60px 20px;
+    background-color: #f9f9f9;
+  }
+
+  /* Title */
+  .product-titles {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .product-titles h2 {
+    font-size: 28px;
+    color: #000;
+    margin-bottom: 10px;
+  }
+
+  .product-titles p {
+    font-size: 16px;
+    color: #666;
+  }
+
+  /* Toggle Buttons */
+  #product-buttons {
+    text-align: center;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  .toggle-btn {
+    padding: 10px 20px;
+    margin: 5px 10px;
+    font-weight: bold;
+    background-color: #eee;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .toggle-btn:hover {
+    background-color: #ddd;
+  }
+
+  .toggle-btn.active {
+    background-color: #000;
+    color: #fff;
+  }
+
+  /* Product Grid */
+  .products,
+  .product-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 20px 10px;
+  }
+
+  /* Individual Card */
+  .product-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  .product-card:hover {
+    transform: translateY(-6px);
+  }
+
+  /* Product Image */
+  .product-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 12px;
+  }
+
+  /* Product Name */
+  .product-card h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 10px 0;
+    color: #222;
+  }
+
+  /* Price */
+  .product-card .price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 12px;
+  }
+
+  /* Buy Button */
+  .product-card button,
+  .buy-btn {
+    background-color: #25D366;
+    color: #fff;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .product-card button:hover,
+  .buy-btn:hover {
+    background-color: #1ebe57;
+  }
+
+  /* Responsive spacing for landing section */
+  .landing,
+  .hero {
+    margin-bottom: 60px;
+  }
+
+  /* === RESPONSIVE STYLES === */
+  @media (max-width: 768px) {
+    .product-titles h2 {
+      font-size: 22px;
     }
 
-    .product-card {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      padding: 15px;
-      text-align: center;
-      transition: transform 0.2s ease;
+    .product-titles p {
+      font-size: 14px;
     }
 
-    .product-card:hover {
-      transform: translateY(-5px);
+    .toggle-btn {
+      padding: 8px 14px;
+      font-size: 14px;
+      margin: 6px 6px;
     }
 
     .product-card img {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-      border-radius: 8px;
+      height: 180px;
     }
 
     .product-card h2 {
-      font-size: 18px;
-      margin: 15px 0 10px;
+      font-size: 16px;
     }
 
     .product-card .price {
-      font-weight: bold;
-      color: #444;
-      margin-bottom: 10px;
+      font-size: 14px;
     }
 
-    .buy-btn {
-      display: inline-block;
-      background: #25D366;
-      color: white;
-      padding: 10px 15px;
-      border-radius: 5px;
-      text-decoration: none;
-      transition: background 0.3s;
+    .product-card button {
+      padding: 8px 12px;
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .product-container {
+      grid-template-columns: 1fr;
     }
 
-    .buy-btn:hover {
-      background: #1ebe57;
+    .product-card {
+      padding: 10px;
     }
+
+    .toggle-btn {
+      width: 100%;
+      margin: 6px 0;
+    }
+  }
+
 
     footer {
         margin-top: auto;
@@ -221,8 +342,15 @@
       </div>
     </section>
 
-    <!-- Product Section -->
-    <section class="products" id="products">
+        <!-- Product Section -->
+    <section class="products-section" id="products">
+      <div class="product-titles">
+        <button class="toggle-btn active" onclick="showProducts('curbs')">Curbs / Hats</button>
+        <button class="toggle-btn" onclick="showProducts('fashion')">Fashion Tops</button>
+      </div>
+
+      <!-- Curbs / Hats -->
+      <div class="product-container" id="curbs-products">
         <div class="product-card">
         <img src="images/Back Net Curb White and Green.jpg" alt="White and Green">
         <h2>White and Green</h2>
@@ -355,6 +483,25 @@
         <p class="price">GHS 50</p>
         <button onclick="addToCart('White and Ash', 50)">Add to Cart</button>
         </div>
+      </div>
+
+          <!-- Fashion Tops -->
+      <div class="product-container" id="fashion-products" style="display: none;">
+        <div class="product-card">
+          <img src="images/curb5.jpg" alt="White Tee">
+          <h2>White Tee</h2>
+          <p class="price">GHS 60</p>
+          <button onclick="addToCart('White Tee', 60)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <img src="images/curb3.jpg" alt="Black Tee">
+          <h2>Black Tee</h2>
+          <p class="price">GHS 60</p>
+          <button onclick="addToCart('Black Tee', 60)">Add to Cart</button>
+        </div>
+
+        <!-- Add more fashion tops here -->
+      </div>
     </section>
     
 
@@ -380,5 +527,26 @@
         document.querySelector('.navbar').classList.toggle('active');
       }
     </script>
+
+    <script>
+      function showProducts(type) {
+        const curbs = document.getElementById('curbs-products');
+        const fashion = document.getElementById('fashion-products');
+        const buttons = document.querySelectorAll('.toggle-btn');
+      
+        if (type === 'curbs') {
+          curbs.style.display = 'flex';
+          fashion.style.display = 'none';
+        } else {
+          curbs.style.display = 'none';
+          fashion.style.display = 'flex';
+        }
+      
+        // Toggle active class
+        buttons.forEach(btn => btn.classList.remove('active'));
+        document.querySelector(`.toggle-btn[onclick="showProducts('${type}')"]`).classList.add('active');
+      }
+      </script>
+      
 </body>
 </html>
